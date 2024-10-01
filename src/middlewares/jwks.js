@@ -3,7 +3,7 @@ const jwksClient = require('jwks-rsa');
 
 module.exports = () => {
   const client = jwksClient({
-    jwksUri: 'https://proper-bear-ed0eac23c6.strapiapp.com//.well-known/jwks.json',
+    jwksUri: 'https://proper-bear-ed0eac23c6.strapiapp.com/well-known/jwks.json',
   });
 
   function getKey(header, callback) {
