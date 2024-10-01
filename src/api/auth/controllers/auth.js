@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const bcrypt = require('fs');
+const fs = require('fs');
 
 module.exports = {
   async register(ctx) {
