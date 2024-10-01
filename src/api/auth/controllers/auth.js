@@ -28,7 +28,7 @@ module.exports = {
 
     const privateKey = fs.readFileSync('./private.key', 'utf8');
 
-    const token = jwt.sign({ id: newUser.id, email: newUser.email }, privateKey, {  algorithm: 'RS256', expiresIn: '1h' });
+    const token = jwt.sign({ id: newUser.id, email: newUser.email }, privateKey, {  algorithm: 'RS256', expiresIn: '1h', keyid: 'ErH_ggmM1XALsnoxly8Ce2xlYXHaqYDn0h1sv3pS7_4' });
 
     return ctx.send({
       user: newUser,
@@ -58,7 +58,7 @@ module.exports = {
     const privateKey = fs.readFileSync('./private.key', 'utf8');
 
     // Generate JWT
-    const token = jwt.sign({ id: user.id, email: user.email }, privateKey, {  algorithm: 'RS256', expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id, email: user.email }, privateKey, {  algorithm: 'RS256', expiresIn: '1h', keyid: "ErH_ggmM1XALsnoxly8Ce2xlYXHaqYDn0h1sv3pS7_4"  });
 
     return ctx.send({
       jwt: token,
