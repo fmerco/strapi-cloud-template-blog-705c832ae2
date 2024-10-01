@@ -28,7 +28,7 @@ module.exports = {
 
     const privateKey = fs.readFileSync('./private.key', 'utf8');
 
-    const token = jwt.sign({ id: newUser.id, email: newUser.email }, privateKey, { expiresIn: '1h' });
+    const token = jwt.sign({ id: newUser.id, email: newUser.email }, privateKey, {  algorithm: 'RS256', expiresIn: '1h' });
 
     return ctx.send({
       user: newUser,
