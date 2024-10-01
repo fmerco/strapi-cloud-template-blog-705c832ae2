@@ -97,7 +97,7 @@ async function uploadFile(file, name) {
     });
 }
 
-// Create an entry and attach files if there are any
+ // Create an entry and attach files if there are any
 async function createEntry({ model, entry }) {
   try {
     // Actually create the entry in Strapi
@@ -238,21 +238,21 @@ async function importAuthors() {
 
 async function importSeedData() {
   // Allow read of application content types
-  await setPublicPermissions({
+   await setPublicPermissions({
     article: ['find', 'findOne'],
     category: ['find', 'findOne'],
     author: ['find', 'findOne'],
     global: ['find', 'findOne'],
     about: ['find', 'findOne'],
   });
-
+/*
   // Create all entries
   await importCategories();
   await importAuthors();
   await importArticles();
   await importGlobal();
-  await importAbout();
-}
+  await importAbout(); */
+} 
 
 async function main() {
   const { createStrapi, compileStrapi } = require('@strapi/strapi');
