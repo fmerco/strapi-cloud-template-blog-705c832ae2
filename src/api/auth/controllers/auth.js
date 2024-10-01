@@ -82,9 +82,9 @@ module.exports = {
     // Generate JWT
     const token = jwt.sign(
       {
-        id: newUser.id,
-        sub: newUser.id,
-        email: newUser.email,
+        id: user.id,
+        sub: user.id,
+        email: user.email,
         iss: "https://proper-bear-ed0eac23c6.strapiapp.com",
         aud: "123",
       },
