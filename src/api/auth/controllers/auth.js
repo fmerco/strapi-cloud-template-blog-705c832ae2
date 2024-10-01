@@ -33,7 +33,13 @@ module.exports = {
     const privateKey = fs.readFileSync("./private.key", "utf8");
 
     const token = jwt.sign(
-      { id: newUser.id, email: newUser.email },
+      {
+        id: newUser.id,
+        sub: newUser.id,
+        email: newUser.email,
+        iss: "https://proper-bear-ed0eac23c6.strapiapp.com",
+        aud: "123",
+      },
       privateKey,
       {
         algorithm: "RS256",
@@ -74,13 +80,23 @@ module.exports = {
     const privateKey = fs.readFileSync("./private.key", "utf8");
 
     // Generate JWT
-    const token = jwt.sign({ id: user.id, email: user.email }, privateKey, {
-      algorithm: "RS256",
-      expiresIn: "7d",
-      header: {
-        kid: "ErH_ggmM1XALsnoxly8Ce2xlYXHaqYDn0h1sv3pS7_4",
+    const token = jwt.sign(
+      {
+        id: newUser.id,
+        sub: newUser.id,
+        email: newUser.email,
+        iss: "https://proper-bear-ed0eac23c6.strapiapp.com",
+        aud: "123",
       },
-    });
+      privateKey,
+      {
+        algorithm: "RS256",
+        expiresIn: "7d",
+        header: {
+          kid: "ErH_ggmM1XALsnoxly8Ce2xlYXHaqYDn0h1sv3pS7_4",
+        },
+      }
+    );
 
     return ctx.send({
       jwt: token,
