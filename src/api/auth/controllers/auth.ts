@@ -1,0 +1,63 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+module.exports = {
+  async register(ctx) {
+    const { username, email, password } = ctx.request.body;
+
+    if (!username || !email || !password) {
+      return ctx.badRequest('Please provide username, email, and password');
+    }
+
+    const existingUser = await strapi.query('plugin::users-permissions.user').findOne({ where: { email } });
+    if (existingUser) {
+      return ctx.badRequest('Email already registered');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await strapi.query('plugin::users-permissions.user').create({
+      data: {
+        username,
+        email,
+        password: hashedPassword,
+        confirmed: true,
+      },
+    });
+
+    const token = jwt.sign({ id: newUser.id, email: newUser.email }, 'your-secret-key', { expiresIn: '1h' });
+
+    return ctx.send({
+      user: newUser,
+      jwt: token,
+    });
+  },
+
+  async login(ctx) {
+    const { email, password } = ctx.request.body;
+
+    if (!email || !password) {
+      return ctx.badRequest('Please provide email and password');
+    }
+
+    // Find user by email
+    const user = await strapi.query('plugin::users-permissions.user').findOne({ where: { email } });
+    if (!user) {
+      return ctx.badRequest('Invalid credentials');
+    }
+
+    // Check password
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return ctx.badRequest('Invalid credentials');
+    }
+
+    // Generate JWT
+    const token = jwt.sign({ id: user.id, email: user.email }, 'your-secret-key', { expiresIn: '1h' });
+
+    return ctx.send({
+      jwt: token,
+      user,
+    });
+  },
+};
