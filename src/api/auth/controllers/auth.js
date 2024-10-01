@@ -17,10 +17,6 @@ module.exports = {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const privateKey = fs.readFileSync('./private.key', 'utf8');
-
-    const token = jwt.sign({ id: newUser.id, email: newUser.email }, privateKey, {  algorithm: 'RS256', expiresIn: '1h' });
-
     const newUser = await strapi.query('plugin::users-permissions.user').create({
       data: {
         username,
@@ -29,6 +25,10 @@ module.exports = {
         confirmed: true,
       },
     });
+
+    const privateKey = fs.readFileSync('./private.key', 'utf8');
+
+    const token = jwt.sign({ id: newUser.id, email: newUser.email }, privateKey, {  algorithm: 'RS256', expiresIn: '1h' });
 
     return ctx.send({
       user: newUser,
