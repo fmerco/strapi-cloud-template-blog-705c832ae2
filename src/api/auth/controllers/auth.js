@@ -37,7 +37,7 @@ module.exports = {
       privateKey,
       {
         algorithm: "RS256",
-        expiresIn: "1h",
+        expiresIn: "7d",
         header: {
           kid: "ErH_ggmM1XALsnoxly8Ce2xlYXHaqYDn0h1sv3pS7_4",
         },
@@ -76,7 +76,7 @@ module.exports = {
     // Generate JWT
     const token = jwt.sign({ id: user.id, email: user.email }, privateKey, {
       algorithm: "RS256",
-      expiresIn: "1h",
+      expiresIn: "7d",
       header: {
         kid: "ErH_ggmM1XALsnoxly8Ce2xlYXHaqYDn0h1sv3pS7_4",
       },
