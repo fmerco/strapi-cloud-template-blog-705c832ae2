@@ -94,7 +94,7 @@ module.exports = {
         },
       }
     );
-
+    
     return ctx.send({
       jwt: token,
       user,
