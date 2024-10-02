@@ -4,9 +4,6 @@ module.exports = {
       method: "GET",
       path: "/user/me",
       handler: "user.me",
-      config: {
-        auth: true, 
-      },
     },
   ],
 };

@@ -18,7 +18,7 @@ module.exports = () => {
   }
 
   return async (ctx, next) => {
-    const token = ctx.request.header.authorization && ctx.request.header.authorization.split(' ')[1]; // Bearer token
+    const token = ctx.request.header.authorization && ctx.request.header.authorization.split(' ')[1];
     if (!token) {
       return ctx.unauthorized('No token provided');
     }
@@ -28,7 +28,7 @@ module.exports = () => {
         if (err) {
           return ctx.unauthorized('Invalid token');
         }
-        ctx.state.user = decoded; // Add user information to the request context
+        ctx.state.user = decoded;
       });
     } catch (err) {
       return ctx.unauthorized('Token verification failed');
