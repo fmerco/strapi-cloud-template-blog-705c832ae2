@@ -43,7 +43,7 @@ module.exports = {
       privateKey,
       {
         algorithm: "RS256",
-        expiresIn: "7d",
+        expiresIn: "1h",
         header: {
           kid: "ErH_ggmM1XALsnoxly8Ce2xlYXHaqYDn0h1sv3pS7_4",
         },
@@ -63,7 +63,6 @@ module.exports = {
       return ctx.badRequest("Please provide email and password");
     }
 
-    // Find user by email
     const user = await strapi
       .query("plugin::users-permissions.user")
       .findOne({ where: { email } });
@@ -71,7 +70,6 @@ module.exports = {
       return ctx.badRequest("Invalid credentials");
     }
 
-    // Check password
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
       return ctx.badRequest("Invalid credentials");
@@ -79,7 +77,6 @@ module.exports = {
 
     const privateKey = fs.readFileSync("./private.key", "utf8");
 
-    // Generate JWT
     const token = jwt.sign(
       {
         id: user.id,
@@ -91,7 +88,7 @@ module.exports = {
       privateKey,
       {
         algorithm: "RS256",
-        expiresIn: "7d",
+        expiresIn: "1h",
         header: {
           kid: "ErH_ggmM1XALsnoxly8Ce2xlYXHaqYDn0h1sv3pS7_4",
         },
